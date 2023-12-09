@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+#
+#
+
+nwg-menu -ml 5 -mb 4 -fm nemo -term foot -cmd-lock m-screenlock -cmd-logout 'hyprctl dispatch exit'

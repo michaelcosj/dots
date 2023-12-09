@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+set -e
+
+path=$1
+if [[ -z $path ]]; then
+    path=$(fd . ~/Projects ~/Projects/Personal/Go/ ~/Projects/Jobs/ ~/Projects/Jobs/Believe/ ~/Projects/tests/ ~/.dots/ --exact-depth 1 --type d | fzf)
+    if [[ -z $path ]]; then
+      exit 0
+    fi
+fi
+path=$(realpath $path)
+
+name=$(basename $path | tr . _)
+
+if ! tmux has-session -t=$name 2> /dev/null; then
+    tmux new-session -s $name -c $path
+    exit 0
+fi
+tmux attach-session -t $name

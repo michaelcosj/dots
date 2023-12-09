@@ -1,0 +1,32 @@
+#!/usr/bin/bash
+
+# policy kit (for auth pop ups)
+/usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+
+# gsconnect
+~/.local/bin/gsconnect &
+
+# wallpaper
+hyprpaper &
+
+# notification deamon
+swaync &
+
+# network applet
+nm-applet &
+# bluetooth applet
+blueman-applet &
+# screenshot applet
+weye &
+
+# bottom panel
+waybar &
+
+# auto lockscreen and turn off monitor on idle
+swayidle -w \
+	timeout 600 '~/.dots/scripts/m-screenlock' \
+	timeout 300 'hyprctl dispatch dpms off' \
+		resume 'hyprctl dispatch dpms on' \
+	before-sleep '~/.dots/scripts/m-screenlock' &
+
+

@@ -1,0 +1,134 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "bottom", // Waybar position (top|bottom|left|right)
+
+    "height": 34, // Waybar height (to be removed for auto height)
+    //"width": 1368, // Waybar width
+
+    "spacing": 4, // Gaps between modules (4px)
+
+    "modules-left": ["custom/menu", "hyprland/workspaces", "custom/media"],
+    "modules-center": ["wlr/taskbar"],
+    "modules-right": ["idle_inhibitor", "battery", "custom/notification", "tray", "custom/gsconnect", "clock", ],
+
+    // Modules configuration
+    "hyprland/workspaces": {
+    	"active-only":false,
+	"format": "{icon}",
+	"format-icons": {
+		"1":"",
+		"2":"",
+		"3":"",
+		"4":"",
+		"5":"",
+		"6":"",
+		"7":"",
+		"8":"󰰓",
+	},
+       "persistent-workspaces": {
+             "*": [1, 2, 3, 4, 5, 6, 7], // 5 workspaces by default on every monitor
+       }
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10
+    },
+
+    "clock": {
+        // "timezone": "America/New_York",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
+    },
+
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}",
+        "format-charging": "{icon}󱐋",
+        "format-plugged": "{icon}",
+        "format-warning": "{capacity}% {icon}",
+        "format-critical": "{capacity}% {icon}",
+        "format-alt": "{capacity}% {icon}",
+        "format-icons": [
+            "󰂎",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+        "tooltip-format": "{capacity}%"
+    },
+	"wlr/taskbar": {
+	    "format": "{icon}",
+	    "icon-size": 24,
+	    "icon-theme": "Papirus",
+	    "tooltip-format": "{title}",
+	    "on-click": "activate",
+	    "on-click-middle": "close",
+	    "ignore-list": [ ],
+	    "sort-by-app-id": true,
+	    "app_ids-mapping": {
+	      "firefoxdeveloperedition": "firefox-developer-edition"
+	    },
+	    "rewrite": {
+		"Firefox Web Browser": "Firefox",
+		"Foot Server": "Terminal"
+	    }
+	},
+   "custom/notification": {
+      "tooltip": false,
+      "format": "{icon}",
+      "format-icons": {
+        "notification": "<span foreground='red'><sup></sup></span>",
+        "none": "",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-inhibited-none": ""
+      },
+      "return-type": "json",
+      "exec-if": "which swaync-client",
+      "exec": "swaync-client -swb",
+      "on-click": "swaync-client -t -sw",
+      "on-click-right": "swaync-client -d -sw",
+      "escape": true
+    },
+
+    "custom/menu":{
+      "format": "󰀻",
+      "on-click":"~/.config/waybar/menu-open"
+    },
+
+    "custom/gsconnect" : {
+  	"format": "{}",
+  	"escape": true,
+  	"exec": "python3 $HOME/.config/waybar/gsconnect-status.py",
+  	"return-type": "json",
+  	"tooltip": "{tooltip}",
+  	"interval": 10,
+  	"on-click": "~/.local/bin/gsconnect-preferences",
+    }
+
+  }
+
+

@@ -1,0 +1,158 @@
+* {
+    font-family: JetBrainsMono Nerd Font, FontAwesome, Arial, sans-serif;
+    font-size: 13px;
+}
+
+window#waybar {
+    background-color: #101419;
+    color: #b6beca;
+    padding: 10px;
+    border-radius: 15px 15px 0 0;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+.modules-left {
+  background-color: #101419;
+  border-radius: 15px 0 15px 0;
+}
+
+.modules-center {
+}
+
+.modules-right {
+  background-color: #1f2328;
+  border-radius: 0 15px 0 15px;
+}
+
+#custom-menu {
+    min-width: 32px;
+    padding: 1px 1px 0 5px;
+    margin: 0px 0px;
+    border-radius: 15px 0 0 0;
+    font-size: 24px;
+    color: #f6d48f;
+}
+
+#custom-menu.hover label {
+    color: #f6d48f;
+}
+
+
+#workspaces {
+    margin: 0 4px;
+    border-radius: 15px 0 15px 0;
+    background-color: #1f2328;
+}
+
+#workspaces button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    min-width: 32px;
+    box-shadow: inset 0 -3px transparent;
+    border: none;
+    border-radius: 15px 0 15px 0;
+    padding: 0 8px 0 5px;
+}
+
+#workspaces button label {
+    font-size: 18px;
+}
+
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.8);
+    background: inherit;
+}
+
+#workspaces button.focused {
+    background-color: #64727D;
+}
+
+#workspaces button.active {
+    color: #c68aee;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
+#taskbar button.active {
+    border-bottom: 1px solid #ABE9B3;
+}
+
+#clock,
+#battery,
+#custom-notification,
+#tray,
+#idle_inhibitor {
+  padding: 0 10px;
+  background-color: #1f2328;
+}
+
+#clock {
+    font-size: 14px;
+    margin: 4px 4px 0 0;
+}
+
+#battery {
+	font-size: 16px;
+	padding: 0 0px 0 8px;
+}
+
+#battery.charging, #battery.plugged, #battery.good {
+    color: #95d3af;
+}
+
+#battery.warning {
+    color: #e5646a;
+}
+
+@keyframes blink {
+    to {
+        color: #101419;
+    }
+}
+
+#battery.critical:not(.charging) {
+    color: #e5646a;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#custom-notification {
+    min-width: 24px;
+    padding-right: 5px;
+    margin: 0px 0px;
+}
+
+
+#custom-gsconnect {
+    min-width: 20px;
+    padding-right: 5px;
+    margin: 0px 0px;
+    font-size: 16px;
+}
+
+#tray {
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #e05f65;
+}
+
+#idle_inhibitor {
+    font-size: 16px;
+    border-radius: 0 0 0 15px;
+    margin: 0 5px;
+}
+
+#idle_inhibitor.activated {
+}
+

@@ -1,0 +1,34 @@
+# 
+# shellcheck=bash
+#
+# blerc
+#
+
+# colors
+ble-face -s auto_complete fg=237,bg=177
+
+# vim mode
+bleopt default_keymap=vi
+
+# history
+bleopt history_share=1
+
+# completion
+bind 'set completion-ignore-case on'
+
+# prompt
+source ~/.dots/bash/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
+
+_get_cwd () {
+    if [[ "$(pwd)" = "$HOME" ]]; then
+        echo "~"
+        return 0
+    fi
+    echo "$(basename $(pwd))"
+}
+
+PS1='\[\e[1;35m\] $(_get_cwd) \[\e[0;32m\]$(__git_ps1 " (%s)")\[\e[0m\]\$ \[\e[0;32m\]'
+
+
+

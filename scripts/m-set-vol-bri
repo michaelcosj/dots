@@ -1,0 +1,53 @@
+#!/usr/bin/bash
+
+set -xe
+
+ACTION=$1 # inc is increase and dec is decrease
+OPTION=$2 # bri is brightness and vol is volume
+
+ID=1
+
+if [ $OPTION = "bri" ]; then
+    if [ $ACTION = "inc" ]; then
+        brightnessctl -q -d intel_backlight \
+            set +5% 
+    fi
+
+    if [ $ACTION = "dec" ]; then
+        brightnessctl -q -d intel_backlight \
+            set 5%- 
+    fi
+
+    SUMMARY="Brightness";
+    BODY="$(((100 * $(brightnessctl get)/$(brightnessctl max))))";
+    ICON="display-brightness";
+
+elif [ $OPTION = "vol" ]; then
+    if [ $ACTION = "inc" ]; then
+        pamixer --increase 5
+    fi
+
+    if [ $ACTION = "dec" ]; then
+        pamixer --decrease 5
+    fi
+
+    SUMMARY="Volume";
+    BODY="$(pamixer --get-volume-human)";
+    ICON="audio-on";
+fi
+
+if [ -n $OPTION ] && [ -n $ACTION ]; then
+    gdbus call --session \
+        --dest=org.freedesktop.Notifications \
+        --object-path=/org/freedesktop/Notifications \
+        --method=org.freedesktop.Notifications.Notify \
+        "m-scripts" \
+        "$ID" \
+        "$ICON" \
+        "$SUMMARY" \
+        "$BODY" \
+        '[]' \
+        '{"urgency": <1>}' \
+        500
+fi
+

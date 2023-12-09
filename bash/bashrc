@@ -1,0 +1,36 @@
+#
+# ~/.bashrc
+#
+
+# if not running interactively,wt do anything
+[[ $- != *i* ]] && return
+
+# sources
+source /usr/share/blesh/ble.sh  --noattach --rcfile ~/.dots/bash/blerc
+source ~/.dots/bash/aliasrc
+
+# path
+PATH=$PATH:~/.local/bin
+PATH=$PATH:~/.dots/scripts
+PATH=$PATH:~/go/bin/
+PATH=$PATH:/opt/miktex/bin/
+
+# settings
+HISTCONTROL=ignoredups
+shopt -s autocd
+
+# env
+export EDITOR=nvim
+export TERMINAL=foot
+
+# pnpm
+export PNPM_HOME="/home/michael/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# Add this line at the end of .bashrc:
+[[ ${BLE_VERSION-} ]] && ble-attach
+

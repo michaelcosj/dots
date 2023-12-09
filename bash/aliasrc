@@ -1,0 +1,12 @@
+#
+# shellcheck=bash
+#
+
+alias ls='ls --color=auto -h'
+alias grep='grep --color=auto -i'
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+alias eddots='nvim --cmd "cd ~/.dots/" ~/.dots/'

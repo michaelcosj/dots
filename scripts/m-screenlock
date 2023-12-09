@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+#
+#
+
+TMP_FILE=/tmp/lockimg
+
+# check if lock image already exists, if not
+# create a blurred and noisy image based on the wallpaper
+# using imagemagick
+if [ ! -f $TMP_FILE ]; then
+    convert -scale 50% ~/.wall -blur 0x10 +noise Poisson -resize 200% /tmp/lockimg
+fi
+
+# lockscreen
+gtklock -d

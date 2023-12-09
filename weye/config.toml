@@ -1,0 +1,17 @@
+config_selecte]
+delay = 0
+save_path = "~/Pictures/Screenshots"
+file_name = "Screenshot- + year + month + day + hour + minute"
+save_type = "png"
+
+[config_window]
+delay = 0
+save_path = "~/Pictures/Screenshots"
+file_name = "Screenshot- + year + month + day + hour + minute"
+save_type = "png"
+
+[config_fulshot]
+delay = 0
+save_path = "~/Pictures/Screenshots"
+file_name = "Screenshot- + year + month + day + hour + minute"
+save_type = "png"
