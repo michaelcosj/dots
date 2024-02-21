@@ -3,7 +3,7 @@ set -e
 
 path=$1
 if [[ -z $path ]]; then
-    path=$(fd . ~/Projects ~/Projects/Personal/Go/ ~/Projects/Jobs/ ~/Projects/Jobs/Believe/ ~/Projects/tests/ ~/.dots/ --exact-depth 1 --type d | fzf)
+    path=$(fdfind . ~/Projects/Work/ ~/Projects/Personal/ ~/.dots/ --exact-depth 1 --type d | fzf)
     if [[ -z $path ]]; then
       exit 0
     fi
