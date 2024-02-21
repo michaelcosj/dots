@@ -6,14 +6,16 @@
 [[ $- != *i* ]] && return
 
 # sources
-source /usr/share/blesh/ble.sh  --noattach --rcfile ~/.dots/bash/blerc
+source ~/.local/share/blesh/ble.sh --noattach --rcfile ~/.dots/bash/blerc
 source ~/.dots/bash/aliasrc
+source ~/.dots/bash/fnm_completions
 
 # path
 PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.dots/scripts
 PATH=$PATH:~/go/bin/
 PATH=$PATH:/opt/miktex/bin/
+PATH=$PATH:/usr/lib/go-1.21/bin/
 
 # settings
 HISTCONTROL=ignoredups
@@ -34,3 +36,8 @@ esac
 # Add this line at the end of .bashrc:
 [[ ${BLE_VERSION-} ]] && ble-attach
 
+
+# fnm
+PATH=$PATH:~/.local/bin/fnm/
+eval "`fnm env`"
+. "$HOME/.cargo/env"
