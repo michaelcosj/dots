@@ -2,11 +2,25 @@
 # shellcheck=bash
 #
 
+# color output
 alias ls='ls --color=auto -h'
 alias grep='grep --color=auto -i'
 
+# safety
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+# quick editing
 alias eddots='nvim --cmd "cd ~/.dots/" ~/.dots/'
+alias edbash='nvim ~/.bashrc'
+alias ednvim='nvim --cmd "cd ~/.config/nvim" ~/.config/nvim/init.lua'
+
+# source bashrc
+alias srcbash='source ~/.bashrc'
+
+# laravel sail
+alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+
+# fd
+alias fd='fdfind'
