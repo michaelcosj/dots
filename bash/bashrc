@@ -2,13 +2,19 @@
 # ~/.bashrc
 #
 
-# if not running interactively,wt do anything
+#-- if not running interactively, don't do anything --#
 [[ $- != *i* ]] && return
 
-# alias
+#-- Sources --#
 source ~/.config/bash/aliasrc
 
-# env
+#-- Settings --#
+HISTCONTROL=ignoredups
+shopt -s autocd
+shopt -s histappend
+set -o noclobber
+
+#-- Environment --#
 export EDITOR=nvim
 export TERMINAL=wezterm
 
@@ -17,34 +23,6 @@ PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.dots/configs/scripts
 PATH=$PATH:~/go/bin/
 PATH=$PATH:/opt/miktex/bin/
-
-# settings
-HISTCONTROL=ignoredups
-shopt -s autocd
-shopt -s histappend
-set -o vi
-
-#prompt
-source ~/.dots/configs/bash/git-prompt.sh
-export GIT_PS1_SHOWDIRTYSTATE=1
-
-function _get_cwd () {
-    if [[ "$(pwd)" = "$HOME" ]]; then
-        echo "~"
-        return 0
-    fi
-    echo "$(basename $(pwd))"
-}
-
-function parse_git_dirty {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
-}
-
-function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1 $(parse_git_dirty))/"
-}
-
-PS1='\[\e[0;32m\]$(parse_git_branch " (%s)")\[\e[1;35m\] $(_get_cwd) \[\e[0m\]\$ \[\033[00m\]'
 
 # pnpm
 export PNPM_HOME="/home/michael/.local/share/pnpm"
@@ -61,5 +39,37 @@ esac
 export FLYCTL_INSTALL="/home/michael/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
-# Add this line at the end of .bashrc:
-# [[ ${BLE_VERSION-} ]] && ble-attach
+#-- Prompt --#
+function _get_cwd () {
+    if [[ "$(pwd)" = "$HOME" ]]; then
+        echo "~"
+        return 0
+    fi
+    echo "$(basename $(pwd))"
+}
+
+function parse_git_dirty {
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+}
+
+
+function parse_git_staged {
+  [[ $(git status 2> /dev/null | grep --color=never -qvz "to be committed"; echo $?) != 0 ]] && echo "+"
+}
+
+function parse_git_branch {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1 $(parse_git_dirty) $(parse_git_staged))/"
+}
+
+PS1='\[\e[0;32m\]$(parse_git_branch " (%s)")\[\e[1;35m\] $(_get_cwd) \[\e[0m\]\$ \[\033[00m\]'
+
+#-- Functions --#
+mkcd() {
+    local dir="$1"
+
+    if [[ ! -d "$dir" ]]; then 
+        mkdir -p "$dir" || return 1
+    fi
+
+    cd "$dir" || return 1
+}
