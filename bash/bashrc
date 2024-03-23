@@ -54,11 +54,11 @@ function parse_git_dirty {
 
 
 function parse_git_staged {
-  [[ $(git status 2> /dev/null | grep --color=never -qvz "to be committed"; echo $?) != 0 ]] && echo "+"
+  [[ $(git status 2> /dev/null | grep --color=never -qvz "to be committed"; echo $?) != 0 ]] && echo " +"
 }
 
 function parse_git_branch {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1 $(parse_git_dirty) $(parse_git_staged))/"
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/(\1 $(parse_git_dirty)$(parse_git_staged))/"
 }
 
 PS1='\[\e[0;32m\]$(parse_git_branch " (%s)")\[\e[1;35m\] $(_get_cwd) \[\e[0m\]\$ \[\033[00m\]'
