@@ -1,18 +1,34 @@
 #!/usr/bin/bash
 set -e
 
-path=$1
+arg=$1
+
+# This allow me to use tsm to conveniently 
+# view and attach to existing sessions
+if [[ $arg = '-ls' ]]; then
+    session=$(tmux list-sessions | cut -d ':' -f 1 | fzf);
+    tmux attach-session -t $session
+    exit 0
+fi
+
+# Parse paths
+path=$arg
 if [[ -z $path ]]; then
-    path=$(fdfind . ~/Projects/Work/ ~/Projects/Personal/ ~/.dots/ --exact-depth 1 --type d | fzf)
+    path=$(fdfind . ~/Projects/Work/ ~/Projects/Personal/ ~/.dots/ --exact-depth 1 --type d | fzf --preview="ls {}")
     if [[ -z $path ]]; then
       exit 0
     fi
 fi
-path=$(realpath $path)
 
+path=$(realpath $path)
 name=$(basename $path | tr . _)
 
 if ! tmux has-session -t=$name 2> /dev/null; then
+    if [ ! -d $path ]; then
+        path="/tmp/$name"
+        mkdir -p $path;
+    fi
+
     tmux new-session -s $name -c $path
     exit 0
 fi

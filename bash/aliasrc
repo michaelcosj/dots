@@ -22,5 +22,8 @@ alias srcbash='source ~/.bashrc'
 # laravel sail
 alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
 
+# php artisan
+alias ar='php artisan'
+
 # fd
 alias fd='fdfind'

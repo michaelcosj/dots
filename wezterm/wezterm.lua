@@ -2,7 +2,7 @@ local wezterm = require 'wezterm'
 local config = {}
 
 -- Apperance
-config.font = wezterm.font 'FiraCode Nerd Font'
+config.font = wezterm.font 'FiraCode Nerd Font Mono'
 config.color_scheme = 'ayu'
 
 -- Tab bar
