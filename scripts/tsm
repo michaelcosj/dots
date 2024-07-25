@@ -11,10 +11,23 @@ if [[ $arg = '-ls' ]]; then
     exit 0
 fi
 
+findCommand="fd"
+
+if ! command -v $findCommand &> /dev/null
+then
+    findCommand="fdfind"
+
+    if ! command -v $findCommand &> /dev/null
+    then
+        echo "please intall fd"
+        exit 1
+    fi
+fi
+
 # Parse paths
 path=$arg
 if [[ -z $path ]]; then
-    path=$(fdfind . ~/Projects/Work/ ~/Projects/Personal/ ~/.dots/ --exact-depth 1 --type d | fzf --preview="ls {}")
+    path=$($findCommand . ~/Projects/Work/ ~/Projects/Personal/ ~/.dots/ --exact-depth 1 --type d | fzf --preview="ls {}")
     if [[ -z $path ]]; then
       exit 0
     fi
