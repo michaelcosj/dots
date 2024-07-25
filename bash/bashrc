@@ -5,8 +5,13 @@
 #-- if not running interactively, don't do anything --#
 [[ $- != *i* ]] && return
 
+#-- Variables --# 
+bash_dir="$(dirname $(readlink -f ~/.bashrc))"
+dots_dir="$(dirname $bash_dir)"
+
 #-- Sources --#
-source ~/.config/bash/aliasrc
+source "$bash_dir/environment"
+source "$bash_dir/aliasrc"
 
 #-- Settings --#
 HISTCONTROL=ignoredups
@@ -15,29 +20,6 @@ shopt -s histappend
 set -o noclobber
 
 #-- Environment --#
-export EDITOR=nvim
-export TERMINAL=wezterm
-
-# path
-PATH=$PATH:~/.local/bin
-PATH=$PATH:~/.dots/configs/scripts
-PATH=$PATH:~/go/bin/
-PATH=$PATH:/opt/miktex/bin/
-
-# pnpm
-export PNPM_HOME="/home/michael/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# cargo
-[ -d "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
-
-# fly.io
-export FLYCTL_INSTALL="/home/michael/.fly"
-export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 #-- Prompt --#
 function _get_cwd () {
@@ -64,6 +46,7 @@ function parse_git_branch {
 PS1='\[\e[0;32m\]$(parse_git_branch " (%s)")\[\e[1;35m\] $(_get_cwd) \[\e[0m\]\$ \[\033[00m\]'
 
 #-- Functions --#
+# mkdir + cd
 mkcd() {
     local dir="$1"
 
@@ -74,6 +57,6 @@ mkcd() {
     cd "$dir" || return 1
 }
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#-- External tools setup --#
+
+# nvm
