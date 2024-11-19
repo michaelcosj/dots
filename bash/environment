@@ -1,5 +1,6 @@
 export EDITOR=nvim
 export TERMINAL=foot
+export TERM=foot-direct
 
 # path
 export PATH=$PATH:"$HOME/.local/bin"
@@ -28,5 +29,17 @@ export NVM_DIR="$HOME/.nvm"
 
 # cargo
 [ -d "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# flutter
+export ANDROID_SDK_ROOT='/opt/android-sdk'
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools/
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin/
+export PATH=$PATH:$ANDROID_ROOT/emulator
+export PATH=$PATH:$ANDROID_SDK_ROOT/tools/
+
+export JAVA_HOME='/usr/lib/jvm/java-8-openjdk'
+
+# fzf
+export FZF_DEFAULT_OPTS='--height 80% --tmux --layout reverse --border'
 
 # vim:filetype=bash
